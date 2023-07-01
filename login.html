@@ -84,53 +84,70 @@
       if (user) {
         document.getElementById("email").value = user.email;
         document.getElementById("password").value = user.password;
-      } 
-      else {
+      } else {
+        // sessionStorage.clear()
       }
 
       //on clicking submit button check if user exits matched
       const loginBtn = document.getElementById("login");
       loginBtn.addEventListener("click", () => {
         console.log("loginBtn clicked");
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+        const email = document.querySelector("#email").value;
+        const password = document.querySelector("#password").value;
 
         const exits = checkUserExits(email, password);
         console.log(exits);
         if (exits) {
           sessionStorage.setItem("accessToken", generateAccessToken());
           setTimeout(() => {
-            localStorage.removeItem('arrCart')
+            localStorage.removeItem("arrCart");
             const path = ``;
             window.location.href = `.${path}/shop.html`;
           }, 2000);
-        } 
-        else {
+        } else {
           setTimeout(alert(" Please Signup otherwise"), 2500);
         }
       });
 
       function checkUserExits(email, password) {
         let userList = JSON.parse(localStorage.getItem("users"));
-        console.log(userList);
+        console.log('userList',userList);
+        
         if (!userList) {
           alert("User is not existing... ");
           return false;
         }
-        const exits = userList.map((item) => {
+
+        let checkexits = false;
+        checkexits = userList.find((item) => {
           if (item.email === email && item.password === password) {
-            console.log(item)
+            console.log('user',item);
+            console.log('hi');
             //store the loged user +details in session storage
             sessionStorage.setItem("loggedUser", JSON.stringify(item));
-            return;
+            return true;
           }
         });
-        if (exits) {
+        console.log('checkexits' , checkexits)
+
+        if (checkexits) {
           alert("Successfully LoggedIn");
           return true;
         } 
         else {
           alert("Enter correct details");
+          let emailalert = true;
+          let passwordalert = true;
+          userList.map((item) => {
+            if (item.email === email) {
+              emailalert = false;
+            }
+            if (item.password === password) {
+              password = false;
+            }
+          });
+          if(emailalert){ alert('Enter correct email')}
+          if(passwordalert){ alert('Enter correct password')}
           return false;
         }
       }

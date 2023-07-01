@@ -136,9 +136,21 @@
         //get all details of user from session Storage
         let user = JSON.parse(sessionStorage.getItem('loggedUser'))
         console.log(user)
-        
-         document.getElementById("firstName").value = user.firstName;
+        if(user){
+          document.getElementById("firstName").value = user.firstName;
          document.getElementById("lastName").value = user.lastName;
+        }
+        else{
+          alert('Login first')
+          setTimeout(() => {
+                    sessionStorage.clear()
+                    localStorage.removeItem('arrCart')
+                const path = ``;
+                window.location.href = `.${path}/login.html`;
+                }, 2000)
+          
+        }
+         
 
         //on clicking submit button check if user exits matched
         const saveInfo = document.getElementById("saveInfo")
@@ -263,6 +275,7 @@
                 setTimeout(() => {
                     sessionStorage.clear()
                     localStorage.removeItem('arrCart')
+                    
                 const path = ``;
                 window.location.href = `.${path}/index.html`;
                 }, 2000)

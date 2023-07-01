@@ -77,7 +77,11 @@
       }
     },
     "handler": function (response) {
-      alert(response.razorpay_payment_id);
+      alert('Payment Successful');
+      setTimeout(() => {
+            const path = ``;
+            window.location.href = `.${path}/shop.html`;
+          }, 2000);
     },
     "modal": {
       "ondismiss": function () {
@@ -99,6 +103,9 @@
   var rzp1 = new Razorpay(options);
   document.getElementById('rzp-button1').onclick = function (e) {
     console.log(JSON.stringify(sessionStorage.getItem("cost")))
+    localStorage.removeItem("arrCart")
+    localStorage.removeItem("cost")
+    sessionStorage.removeItem("cost")
     rzp1.open();
     e.preventDefault();
   }

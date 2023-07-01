@@ -197,11 +197,22 @@ if (token) {
 
 function addToCart(id) {
   let arr = JSON.parse(localStorage.getItem("myArr"));
-  arr.find((item) => {
-    if (item.id === id) {
-      arrCart.push(item);
-    }
-  });
+  if(localStorage.getItem("arrCart")){
+    console.log('earlierpresent' , JSON.parse(localStorage.getItem("arrCart")));
+    arrCart = JSON.parse(localStorage.getItem("arrCart"))
+    arr.find((item) => {
+      if (item.id === id) {
+        arrCart.push(item);
+      }
+    });
+  }
+  else{
+    arr.find((item) => {
+      if (item.id === id) {
+        arrCart.push(item);
+      }
+    });
+  }
   console.log(arrCart);
   localStorage.setItem("arrCart", JSON.stringify(arrCart));
 }
