@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      nav > .nav-right {
+        position: absolute;
+        left: 900px;
+      }
+
+      .signup-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 50px;
+        margin-left: 57px;
+        /* top: 120px;
+        left: 57px; */
+      }
+      .signup-container > p {
+        color: #000;
+        font-size: 30px;
+        font-family: Inter;
+       
+        margin-top: -10px ;
+      }
+
+      .signup-container > input {
+        display: flex;
+        flex-direction: column;
+        width: 90%;
+        height: 72px;
+        border: 1px solid #000;
+        color: #000;
+        font-size: 24px;
+        font-family: Inter;
+        margin-top: 30px;
+        padding: 0 20px;
+      }
+      .signup-container > button {
+        width: 208px;
+        height: 56px;
+        background: #000;
+        color: #fff;
+        text-align: center;
+        font-size: 24px;
+        font-family: Inter;
+        border: none;
+        margin-top: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NavBar Header -->
+    <nav>
+      <div class="logo">MeShop.</div>
+      <div class="nav-right">
+        <a href="./index.html" target="_self">Home</a>
+        <a href="./login.html" target="_self">Logout</a>
+        <a href="./signup.html" target="_self">Signup</a>
+        <a href="./mycart.html" target="_self">My Cart</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="signup-container">
+      <p>Signup</p>
+
+      <input id="firstName" type="text" placeholder="First Name" />
+      <input id="lastName" type="text" placeholder="Last Name" />
+      <input id="email" type="email" placeholder="Email" />
+      <input id="password" type="password" placeholder="Password" />
+      <input
+        id="confirmPassword"
+        type="password"
+        placeholder="Confirm Password"
+      />
+
+      <button id="signup" type="submit">Signup</button>
+    </div>
+
+    <script>
+      const signupBtn = document.getElementById("signup");
+
+      signupBtn.addEventListener("click", () => {
+        const firstName = document.getElementById("firstName").value;
+        const lastName = document.getElementById("lastName").value;
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+
+        //  checking if all details are entered
+        if (firstName && lastName && email && password && confirmPassword) {
+          //Now, Check if password matches with confirm password
+          if (password === confirmPassword) {
+            // check if user email is unique so there wont be multiple details in array
+            let userList = JSON.parse(localStorage.getItem("users"));
+            if (userList) {
+              let emailExits = checkEmailExits(email);
+              if (!emailExits) {
+                saveUserDetails(firstName, lastName, email, password);
+              }
+            } else {
+              saveUserDetails(firstName, lastName, email, password);
+            }
+
+            // checkEmailExits(email);
+
+            // // add all the details in userobj for unique user
+            // saveUserDetails(firstName , lastName, email, password);
+          }
+          //when passwords are not matched
+          else {
+            alert("Password are not matched");
+            password = "";
+            confirmPassword = "";
+          }
+        }
+        //if all details not entered
+        else {
+          alert("All fileds are required");
+        }
+      });
+
+      function checkEmailExits(email) {
+        //get the stored array and check inside it
+        let userList = JSON.parse(localStorage.getItem("users"));
+        console.log(userList);
+        const exits = userList.find((item) => {
+          return item.email === email;
+        });
+        if (exits) {
+          alert("Given email already exits");
+          return true;
+        }
+        return false;
+      }
+
+      function saveUserDetails(firstName, lastName, email, password) {
+        //if array exits then add in that array or if there is none then add in empty array
+        let userList = JSON.parse(localStorage.getItem("users")) || [];
+
+        console.log(userList);
+        //add details of user
+        const user = {
+          firstName,
+          lastName,
+          email,
+          password,
+        };
+        userList.push(user);
+        console.log(userList);
+        //store user Data in local storage
+        localStorage.setItem("users", JSON.stringify(userList));
+
+        //store the loged user +details in session storage
+        sessionStorage.setItem("loggedUser", JSON.stringify(user));
+
+        document.getElementById("firstName").value = "";
+        lastName = "";
+        email = "";
+        password = "";
+
+        alert("Successfully Signup");
+        setTimeout(() => {
+          const path = ``;
+          window.location.href = `.${path}/login.html`;
+        }, 2000);
+      }
+
+    </script>
+  </body>
+</html>

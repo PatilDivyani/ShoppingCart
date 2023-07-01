@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Profile</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      p {
+        text-align: center;
+        color: #000;
+        text-align: center;
+        font-size: 50px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 700;
+        line-height: normal;
+      }
+      .profile-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 64px;
+        margin-left: 57px;
+        position: relative;
+        color: #000;
+        font-size: 30px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .profile-container > input {
+        flex-direction: column;
+        width: 90%;
+        height: 72px;
+        border: 1px solid #000;
+        color: #000;
+        margin-top: 50px;
+        padding-left: 29.3px;
+        color: #000;
+        font-size: 24px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .profile-container > button {
+        width: 208px;
+        height: 56px;
+        background: #000;
+        color: #fff;
+        text-align: center;
+        font-size: 24px;
+        font-family: Inter;
+        border: none;
+        margin-top: 50px;
+      }
+      .edit-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 64px;
+        margin-left: 57px;
+        position: relative;
+        color: #000;
+        font-size: 30px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .edit-container > input {
+        flex-direction: column;
+        width: 90%;
+        height: 72px;
+        border: 1px solid #000;
+        color: #000;
+        margin-top: 50px;
+        padding-left: 29.3px;
+        color: #000;
+        font-size: 24px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .edit-container > button {
+        width: 208px;
+        height: 56px;
+        background: #000;
+        color: #fff;
+        text-align: center;
+        font-size: 24px;
+        font-family: Inter;
+        border: none;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NavBar Header -->
+    <nav>
+      <div class="logo"><a href="./shop.html" target="_self">Shopping Cart</a></div>
+      
+
+    </nav>
+
+    <!-- Profile content -->
+    <div class="profile-container">
+      <p>My Profile</p>
+      <input id="firstName" type="text" placeholder="First Name" />
+      <input id="lastName" type="text" placeholder="Last Name" />
+      <button id="saveInfo" type="submit">Save Info</button>
+    </div>
+    <!-- Edit Content -->
+    <div class="edit-container">
+      <p>Edit Password</p>
+      <input id="old_password" type="password" placeholder="Old Password" />
+      <input id="new_password" type="password" placeholder="New Password" />
+      <input
+        id="confirmNewPassword"
+        type="password"
+        placeholder="Confirm New Password"
+      />
+      <button id="change_password" type="submit">Change Password</button>
+      <button id="logout" type="submit">Logout</button>
+    </div>
+
+    <script>
+      let token = sessionStorage.getItem("accessToken");
+      if (!token) {
+        setTimeout(() => {
+          const path = ``;
+          window.location.href = `.${path}/login.html`;
+        }, 2000);
+      }
+        //get all details of user from session Storage
+        let user = JSON.parse(sessionStorage.getItem('loggedUser'))
+        console.log(user)
+        
+         document.getElementById("firstName").value = user.firstName;
+         document.getElementById("lastName").value = user.lastName;
+
+        //on clicking submit button check if user exits matched
+        const saveInfo = document.getElementById("saveInfo")
+        saveInfo.addEventListener(('click'),()=>{
+            let user = JSON.parse(sessionStorage.getItem('loggedUser'))
+            let firstName0 =user.firstName 
+            let lastName0 = user.lastName 
+            const firstName = document.getElementById("firstName").value;
+            const lastName = document.getElementById("lastName").value;
+            console.log(user)
+            console.log(firstName0)
+            console.log(firstName)
+            
+            const exits = updateUser(firstName0, lastName0, firstName , lastName)
+            console.log(exits)
+            // if(exits){
+            //     setTimeout(() => {
+            //     const path = ``;
+            //     window.location.href = `.${path}/shop.html`;
+            //     }, 2000)
+            // }
+            
+        })
+
+        function updateUser(firstName0, lastName0, firstName , lastName) {
+            let userList = JSON.parse(localStorage.getItem('users'))
+            // let user = JSON.parse(sessionStorage.getItem('loggedUser'))
+            console.log(userList)
+            const exits = userList.map((item)=>{              
+                if(item.firstName===firstName0 && item.lastName===lastName0){
+                    item.firstName = firstName;
+                    item.lastName = lastName;
+                    alert("Successfully Saved Information");
+                     //store the loged user +details in session storage
+                sessionStorage.setItem("loggedUser", JSON.stringify(item));
+                console.log(userList)
+                console.log(JSON.parse(sessionStorage.getItem("loggedUser")))
+                }
+                //store user Data in local storage
+                 localStorage.setItem("users", JSON.stringify(userList));
+
+               
+            })
+            
+            if(exits){ 
+                
+                return true; }
+            else { 
+                alert("Enter correct details");
+                return false }
+        }
+
+        const change_password = document.getElementById("change_password")
+        change_password.addEventListener(('click'),()=>{
+            let user = JSON.parse(sessionStorage.getItem('loggedUser'))
+            let password0 =user.password 
+            
+            let old_password = document.getElementById("old_password").value;
+            let new_password = document.getElementById("new_password").value;
+            let confirmNewPassword = document.getElementById("confirmNewPassword").value;
+
+            console.log(user)
+            console.log(old_password)
+            console.log(new_password)
+            console.log(confirmNewPassword)
+
+        if(password0===old_password){
+            if(new_password===confirmNewPassword){
+                const exits = updatePassword( old_password, new_password)
+            console.log(exits)
+            }
+            else{
+            alert('New Password are mismatched')
+        }
+        }
+        else{
+            alert('Enter correct old password')
+        }
+            // if(exits){
+            //     setTimeout(() => {
+            //     const path = ``;
+            //     window.location.href = `.${path}/shop.html`;
+            //     }, 2000)
+            // }
+            
+            document.getElementById("old_password").value = '';
+            document.getElementById("new_password").value = '';
+            document.getElementById("confirmNewPassword").value = '';
+        })
+
+        function updatePassword( old_password, new_password) {
+            let userList = JSON.parse(localStorage.getItem('users'))
+            // let user = JSON.parse(sessionStorage.getItem('loggedUser'))
+            console.log(userList)
+
+            const exits = userList.map((item)=>{              
+                if(item.password===old_password){
+                    item.password = new_password;                
+                    alert("Successfully Saved New Password");
+                     //store the loged user +details in session storage
+                sessionStorage.setItem("loggedUser", JSON.stringify(item));
+                console.log(userList)
+                console.log(JSON.parse(sessionStorage.getItem("loggedUser")))
+                }
+                //store user Data in local storage
+                 localStorage.setItem("users", JSON.stringify(userList));
+
+               
+            })
+            
+            if(exits){ 
+                
+                return true; }
+            else { 
+                alert("Enter correct details");
+                return false }
+        }
+
+        const logout = document.getElementById("logout")
+        logout.addEventListener('click',()=>{
+           
+                setTimeout(() => {
+                    sessionStorage.clear()
+                    localStorage.removeItem('arrCart')
+                const path = ``;
+                window.location.href = `.${path}/index.html`;
+                }, 2000)
+          
+            
+        })
+    </script>
+  </body>
+</html>

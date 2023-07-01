@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeShop</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- NavBar Header -->
+    <nav>
+        <div class="logo">MeShop.</div>
+        <div class="nav-right">
+            <a href="./index.html" target="_self">Home</a>
+            <a href="./login.html" target="_self">Login</a>
+            <a href="./signup.html" target="_self">Signup</a>
+            <a href="./mycart.html" target="_self">My Cart</a>
+            <a href="./profile.html" target="_self">Profile</a>
+        </div>
+    </nav>
+
+    <!-- Main Content of page -->
+    <div class="container">
+        <h1 class="title">MeShop.</h1>
+        <p>Your First Shop built on HTML,CSS AND JavaScript</p>
+        <div class="btn">
+            <button id="loginBtn" type="submit">Login</button>
+        <button id="signupBtn" type="submit">Signup</button>
+        </div>
+        <img src="./data/undraw_web_shopping_re_owap 1.png" alt="img.png">
+    </div>
+    <script>
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const path = ``;
+
+        loginBtn.addEventListener('click', ()=>{
+            window.location.href = `.${path}/login.html`
+        })
+
+        signupBtn.addEventListener('click', ()=>{
+            window.location.href = `.${path}/signup.html`
+        })
+    </script>
+</body>
+</html>

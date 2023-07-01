@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="shopcss.css" />
+  </head>
+
+  <body>
+    <!-- NavBar Header -->
+    <nav>
+      <div class="logo">MeShop.</div>
+      <div class="nav-right">
+        <a href="./index.html" target="_self">Home</a>
+        <a href="./login.html" target="_self">Login</a>
+        <a href="./signup.html" target="_self">Signup</a>
+        <a href="./mycart.html" target="_self">My Cart</a>
+        <a href="./profile.html" target="_self">Profile</a>
+      </div>
+    </nav>
+
+    <main>
+      <!-- Aside  -->
+      <aside>
+        <!-- Color Section -->
+        <div class="color">
+          <p>Colors</p>
+          <ul style="list-style-type: none">
+            <li>
+              <input type="checkbox" name="red" id="red" />
+              <label for="red">Red</label>
+            </li>
+            <li>
+              <input type="checkbox" name="blue" id="blue" />
+              <label for="blue">Blue</label>
+            </li>
+            <li>
+              <input type="checkbox" name="green" id="green" />
+              <label for="green">Green</label>
+            </li>
+            <li>
+              <input type="checkbox" name="black" id="black" />
+              <label for="black">Black</label>
+            </li>
+            <li>
+              <input type="checkbox" name="white" id="white" />
+              <label for="white">White</label>
+            </li>
+          </ul>
+        </div>
+        <!-- Size section -->
+        <div class="Sizes">
+          <p>Sizes</p>
+          <ul style="list-style-type: none">
+            <li>
+              <input type="checkbox" name="s" id="s" />
+              <label for="s">S</label>
+            </li>
+            <li>
+              <input type="checkbox" name="m" id="m" />
+              <label for="m">M</label>
+            </li>
+            <li>
+              <input type="checkbox" name="l" id="l" />
+              <label for="l">L</label>
+            </li>
+            <li>
+              <input type="checkbox" name="xl" id="xl" />
+              <label for="xl">XL</label>
+            </li>
+          </ul>
+        </div>
+        <!-- Rating Section -->
+        <div class="rating">
+          <p>Rating</p>
+          <section>
+            <input
+              type="range"
+              name="range"
+              id="range"
+              min="0"
+              max="5"
+              value="0"
+              list="values"
+            />
+            <datalist id="values">
+              <option value="0" label="0">0</option>
+              <!-- <option value="1"></option>
+                  <option value="2"></option>
+                  <option value="3"></option>
+                  <option value="4"></option> -->
+              <option value="5" label="5">5</option>
+            </datalist>
+          </section>
+        </div>
+        <!-- Price Range -->
+        <div class="price">
+          <p>Price Range</p>
+          <ul style="list-style-type: none">
+            <li>
+              <input type="checkbox" id="0-25" name="priceRange" />
+              <label for="0-25">$0 to $25</label>
+            </li>
+            <li>
+              <input type="checkbox" id="25-50" name="priceRange" />
+              <label for="25-50">$25 to $50</label>
+            </li>
+            <li>
+              <input type="checkbox" id="50-100" name="priceRange" />
+              <label for="50-100">$50 to $100</label>
+            </li>
+            <li>
+              <input type="checkbox" id=">100" name="priceRange" />
+              <label for=">100">$100 onwards</label>
+            </li>
+          </ul>
+        </div>
+        <button id="applyFilter" type="submit">Apply Filter</button>
+      </aside>
+
+      <!-- main content -->
+      <div class="container">
+        <input type="text" placeholder="Search" />
+        <div class="filterBtn">
+          <div id="all" class="filter">All</div>
+          <div id="menBtn" class="filter">Mens</div>
+          <div id="womBtn" class="filter">Womens</div>
+          <div id="jewBtn" class="filter">Jewellery</div>
+          <div id="eleBtn" class="filter">Electronics</div>
+        </div>
+        <!-- Display Items -->
+          <div class="displayItems">
+            <!-- Men's section -->
+              <div id="men">
+                   <p>Men's Clothing</p>
+                   <!-- <div class="cardsSection"> -->
+                   <!-- <div class="card">
+                  <img
+                    src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+                    alt="img.jpg"
+                  />
+                  <div class="itemDetails">
+                    <p class="itemTitle">title</p>
+                    <div class="price-size">
+                      <p>$100</p>
+                      <p>S,M,L</p>
+                    </div>
+                    <div class="cardColor">
+                      <span>Colors : </span>
+                      <span></span>
+                    </div>
+                    <div class="rating">
+                      <span>Rating : </span>
+                    </div>
+                  </div>
+                  <button id="addToCart" type="submit">Add To Cart</button>
+                </div>
+              </div> -->
+              </div>
+            <!-- Women's Section -->
+              <div id="women">
+                  <p>Women's Clothing</p>
+              </div>
+            <!-- Jewellery Secton -->
+              <div id="jewellery">
+                  <p>Jewellery's</p>
+              </div>
+            <!-- Electronic Section -->
+              <div id="electronic">
+                <p>Electronic's</p>
+              </div>
+          </div>         
+        </div>
+      </div>
+    </main>
+
+    <script src="shopjs.js"></script>
+  </body>
+</html>

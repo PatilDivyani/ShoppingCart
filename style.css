@@ -1,0 +1,94 @@
+
+    *{
+        margin: 0;
+    }
+    body{
+        width: 100vw;
+        height: 1117px;
+        position: relative;
+        overflow-x: hidden;
+        /* width: 1728px; */
+    }
+    nav{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: black;
+        color: #FFF;
+        font-size: 24px;
+        font-family: Inter;
+        
+        width: 100%;
+        height: 70px;
+        position: sticky;
+        /* padding: 0 50px; */
+    }
+    nav > .logo{
+        position: absolute;
+        left: 67px;
+    }
+    nav > .nav-right{
+        position: absolute;
+        left: 800px;
+    }
+    a{
+        color: white;
+        text-decoration: none;
+        padding: 0 20px;
+    }
+    /* main Content */
+    .container{
+        width: 100%;
+        height: 1117px;
+        overflow: hidden;
+        background: #FFF;
+        /* margin-left: 67px; */
+        font-family: Inter;
+    }
+    .container > h1{
+        width: 386px;  
+        font-size: 60px;
+        position: absolute;
+        top: 138px;
+        left: 65px;
+    }
+    .container > p{
+        width: 762px;
+        color: #000;
+        font-size: 25px;
+        position: absolute;
+        top: 258px; 
+        left: 67px;
+    }
+    .container > .btn{
+        position: absolute;
+        top: 334px;
+        left: 67px;
+        display: flex;
+        gap: 33px;
+      
+    }
+    .container  #loginBtn{
+        width: 200px;
+        height: 56px;
+        background: #000;
+        color: #FFF;
+        font-size: 24px;    
+        border: none;
+    }
+    .container  #signupBtn{
+        width: 200px;
+        height: 56px;
+        border: 2px solid #000;
+        background: #FFF;
+        color: #000;
+        font-size: 24px;
+    }
+    .container > img{
+        width: 650px;
+        height: auto;
+        background: url(<path-to-image>), lightgray 50% / cover no-repeat;
+        position: absolute;
+        top: 294px;
+        left: 609px;
+    }

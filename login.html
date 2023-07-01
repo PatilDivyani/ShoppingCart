@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        overflow: hidden;
+      }
+      nav > .nav-right {
+        position: absolute;
+        left: 900px;
+      }
+
+      .login-container {
+        display: flex;
+        flex-direction: column;
+        margin-top: 64px;
+        margin-left: 57px;
+        position: relative;
+        color: #000;
+        font-size: 30px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .login-container > input {
+        flex-direction: column;
+        width: 90%;
+        height: 72px;
+        border: 1px solid #000;
+        color: #000;
+        margin-top: 50px;
+        padding-left: 29.3px;
+        color: #000;
+        font-size: 24px;
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+      }
+      .login-container > button {
+        width: 208px;
+        height: 56px;
+        background: #000;
+        color: #fff;
+        text-align: center;
+        font-size: 24px;
+        font-family: Inter;
+        border: none;
+        margin-top: 50px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NavBar Header -->
+    <nav>
+      <div class="logo">MeShop.</div>
+      <div class="nav-right">
+        <a href="./index.html" target="_self">Home</a>
+        <a href="./login.html" target="_self">Login</a>
+        <a href="./signup.html" target="_self">Signup</a>
+        <a href="./mycart.html" target="_self">My Cart</a>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="login-container">
+      <p>Login</p>
+
+      <input id="email" type="email" placeholder="Email" />
+      <input id="password" type="password" placeholder="Password" />
+
+      <button id="login" type="submit">Login</button>
+    </div>
+
+    <script>
+      //get all details of user from session Storage
+      let user = JSON.parse(sessionStorage.getItem("loggedUser"));
+      console.log(user);
+      if (user) {
+        document.getElementById("email").value = user.email;
+        document.getElementById("password").value = user.password;
+      } 
+      else {
+      }
+
+      //on clicking submit button check if user exits matched
+      const loginBtn = document.getElementById("login");
+      loginBtn.addEventListener("click", () => {
+        console.log("loginBtn clicked");
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const exits = checkUserExits(email, password);
+        console.log(exits);
+        if (exits) {
+          sessionStorage.setItem("accessToken", generateAccessToken());
+          setTimeout(() => {
+            localStorage.removeItem('arrCart')
+            const path = ``;
+            window.location.href = `.${path}/shop.html`;
+          }, 2000);
+        } 
+        else {
+          setTimeout(alert(" Please Signup otherwise"), 2500);
+        }
+      });
+
+      function checkUserExits(email, password) {
+        let userList = JSON.parse(localStorage.getItem("users"));
+        console.log(userList);
+        if (!userList) {
+          alert("User is not existing... ");
+          return false;
+        }
+        const exits = userList.map((item) => {
+          if (item.email === email && item.password === password) {
+            console.log(item)
+            //store the loged user +details in session storage
+            sessionStorage.setItem("loggedUser", JSON.stringify(item));
+            return;
+          }
+        });
+        if (exits) {
+          alert("Successfully LoggedIn");
+          return true;
+        } 
+        else {
+          alert("Enter correct details");
+          return false;
+        }
+      }
+
+      function generateAccessToken() {
+        // Generate a random 16-byte string for access token
+        const characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let token = "";
+        for (let i = 0; i < 16; i++) {
+          token += characters.charAt(
+            Math.floor(Math.random() * characters.length)
+          );
+        }
+        return token;
+      }
+    </script>
+  </body>
+</html>

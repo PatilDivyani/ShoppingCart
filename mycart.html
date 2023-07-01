@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cart</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./cart.css" />
+  </head>
+  <body>
+    <!-- NavBar Header -->
+    <nav>
+        <div class="logo"><a href="./shop.html" target="_self">Shopping Cart</a></div>
+        <div class="nav-right">
+        <a href="./index.html" target="_self">Home</a>
+        <a href="./login.html" target="_self">Logout</a>
+        <a href="./signup.html" target="_self">Signup</a>
+        <a href="./mycart.html" target="_self">My Cart</a>
+        <a href="./profile.html" target="_self">Profile</a>
+      </div>
+    </nav>
+
+    <h1>My Cart</h1>
+    <!-- Main Content -->
+    <div class="container">
+      <div class="cardSection">
+        <!-- <div class="card">
+          <img
+            src="https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg"
+            alt="img.jpg"
+          />
+          <div class="itemDetails">
+            <p class="itemTitle">Title : Shirt</p>
+            <p>Price : $100</p>
+          </div>
+          <button id="removeFromCart" type="submit">Remove From Cart</button>
+        </div> -->
+      </div>
+      <div class="checkoutList">
+        <p>Checkout List</p>
+        <div id="list" class="title-price">
+          <div id="count">
+            <!-- <p>1.Shirt</p> -->
+          </div>
+          <div id="price">
+            <!-- <p>$100</p> -->
+          </div>
+        </div>
+        <div id="total">
+          <!-- <div class="title-price">
+            <p>Total</p>
+            <p>$900/-</p>
+          </div> -->
+        </div>
+        <button id="payment" type="submit">Click To Checkout</button>
+      </div>
+    </div>
+
+    <script>
+      let cartArr = JSON.parse(localStorage.getItem("arrCart"));
+      console.log(cartArr);
+
+      let token = sessionStorage.getItem("accessToken");
+      if (token) {
+        displayItems(cartArr);
+      } else {
+        setTimeout(() => {
+          const path = ``;
+          window.location.href = `.${path}/login.html`;
+        }, 2000);
+      }
+
+      displayCheckList(cartArr);
+      
+      function displayItems(arr) {
+        let cardSection = document.querySelector(".cardSection");
+        cardSection.innerHTML = "";
+
+        console.log("displaying");
+        arr.forEach((item) => {
+          let card = document.createElement("div");
+          card.className = "card";
+          let titlesmall = item.title.substring(0, 8);
+
+          card.innerHTML = `
+            <img
+            src="${item.image}"
+            alt="img.jpg"
+            />
+          <div class="itemDetails">
+            <p class="itemTitle">Title : ${titlesmall}...</p>
+            <p>Price : $${item.price}</p>
+          </div>
+          <button id="removeFromCart" onclick="removeItem(${item.id})" type="submit">Remove From Cart</button>`;
+
+          cardSection.append(card);
+        });
+      }
+
+      function removeItem(id) {
+        let arr = JSON.parse(localStorage.getItem("arrCart"));
+        let filteredArr = arr.filter((item) => {
+          return item.id !== id;
+        });
+        console.log(filteredArr);
+        displayItems(filteredArr);
+        displayCheckList(filteredArr);
+        localStorage.setItem("arrCart", JSON.stringify(filteredArr));
+      }
+
+      function displayCheckList(arr) {
+        let checkoutList = document.getElementsByClassName("checkoutList");
+        let counts = document.querySelector("#count");
+        let price = document.querySelector("#price");
+        let total = document.querySelector("#total");
+        total.innerHTML = ''
+        var sum = 0;
+        var count = 1;
+
+        arr.forEach((item) => {
+          let titlesmall = item.title.substring(0, 8);
+
+          let p = document.createElement("p");
+          p.innerText = `${count}. ${titlesmall}`;
+          counts.append(p);
+          let p2 = document.createElement("p");
+          p2.innerText = `$${item.price}`;
+          price.append(p2);
+          sum += item.price;
+          total.innerHTML = `<div class="title-price">
+                                <p>Total</p>
+                                <p>$${sum.toFixed(2)}/-</p>
+                            </div>`;
+                            console.log('cost',sum)
+         
+          count++;
+          sessionStorage.setItem("cost", JSON.stringify(sum));
+        });
+        console.log('cost',sum)
+      }
+      
+    
+      let payment = document.querySelector('#payment');
+      payment.addEventListener('click',()=>{
+        setTimeout(() => {
+            const path = ``;
+            window.location.href = `.${path}/razor.html`;
+          }, 2000);
+      })
+    </script>
+  </body>
+</html>
